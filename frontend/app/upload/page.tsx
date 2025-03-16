@@ -60,25 +60,6 @@ export default function UploadPage() {
       setIsUploading(false)
       setUploadStatus(Math.random() > 0.2 ? "success" : "error")
     }, 2000)
-
-    // In a real application, you would upload the file to your server:
-    // const formData = new FormData()
-    // formData.append('file', file)
-    // try {
-    //   const response = await fetch('/api/upload', {
-    //     method: 'POST',
-    //     body: formData,
-    //   })
-    //   if (response.ok) {
-    //     setUploadStatus('success')
-    //   } else {
-    //     setUploadStatus('error')
-    //   }
-    // } catch (error) {
-    //   setUploadStatus('error')
-    // } finally {
-    //   setIsUploading(false)
-    // }
   }
 
   const getFileIcon = () => {
@@ -196,6 +177,16 @@ export default function UploadPage() {
                 >
                   Choose a different file
                 </button>
+
+                {/* <button
+                  onClick={() => {
+                    setFile(null)
+                    setUploadStatus("idle")
+                  }}
+                  className="text-[#c41c1c] underline"
+                >
+                  Remove File
+                </button> */}
               </div>
             )}
           </div>
@@ -209,4 +200,3 @@ export default function UploadPage() {
     </main>
   )
 }
-
