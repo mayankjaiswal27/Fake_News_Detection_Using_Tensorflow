@@ -1,13 +1,16 @@
-import Image from "next/image"
+import Image, { StaticImageData } from "next/image"
 import Link from "next/link"
 import { Github, Linkedin, Twitter } from "lucide-react"
 import { ChevronRight } from "lucide-react"
+
+import HarshitaImage from "@/components/images/Harshita.png"
+import MayankImage from "@/components/images/Mayank.jpg"
 
 type Developer = {
   id: number
   name: string
   role: string
-  image: string
+  image: string | StaticImageData
   github?: string
   linkedin?: string
   twitter?: string
@@ -16,36 +19,20 @@ type Developer = {
 const developers: Developer[] = [
   {
     id: 1,
-    name: "Alex Johnson",
-    role: "Lead Developer",
-    image: "/placeholder.svg?height=300&width=300",
-    github: "https://github.com",
-    linkedin: "https://linkedin.com",
-    twitter: "https://twitter.com",
+    name: "Harshita Khare",
+    role: "Developer",
+    image: HarshitaImage,
+    github: "https://github.com/HarshitaKhare28",
+    linkedin: "https://www.linkedin.com/in/harshita-khare-a5152625a/",
   },
   {
     id: 2,
-    name: "Sarah Williams",
-    role: "UI/UX Designer",
-    image: "/placeholder.svg?height=300&width=300",
-    github: "https://github.com",
-    linkedin: "https://linkedin.com",
-  },
-  {
-    id: 3,
-    name: "Michael Chen",
-    role: "Backend Developer",
-    image: "/placeholder.svg?height=300&width=300",
-    github: "https://github.com",
-    twitter: "https://twitter.com",
-  },
-  {
-    id: 4,
-    name: "Emma Rodriguez",
-    role: "Frontend Developer",
-    image: "/placeholder.svg?height=300&width=300",
-    linkedin: "https://linkedin.com",
-    twitter: "https://twitter.com",
+    name: "Mayank Jaiswal",
+    role: "Developer",
+    image: MayankImage,
+    github: "https://github.com/mayankjaiswal27",
+    linkedin: "https://www.linkedin.com/in/mayank-jaiswal-2479a9248/",
+    twitter: "https://x.com/jaiswalmayank27",
   },
 ]
 
@@ -56,8 +43,7 @@ export default function DevelopersSection() {
         <div className="text-center mb-12">
           <h2 className="text-4xl font-bold text-[#233352] mb-4">Our Developers</h2>
           <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-            Meet the talented team behind boots'4. Our developers bring years of experience and passion to every
-            project.
+            Meet the talented developers
           </p>
         </div>
 
@@ -67,9 +53,18 @@ export default function DevelopersSection() {
               key={developer.id}
               className="bg-white rounded-lg overflow-hidden shadow-lg transition-transform hover:scale-105"
             >
-              <div className="relative h-80 w-full">
-                <Image src={developer.image || "/placeholder.svg"} alt={developer.name} fill className="object-cover" />
+              {/* ✅ Improved Image Container with Proper Height */}
+              <div className="relative w-full" style={{ height: "320px" }}>
+                <Image
+                  src={developer.image || "/placeholder.svg"}
+                  alt={developer.name}
+                  fill
+                  className="object-cover"
+                  priority
+                  suppressHydrationWarning // ✅ Fix for SSR/CSR mismatch
+                />
               </div>
+
               <div className="p-6">
                 <h3 className="text-xl font-bold text-[#233352]">{developer.name}</h3>
                 <p className="text-gray-600 mb-4">{developer.role}</p>
@@ -96,16 +91,15 @@ export default function DevelopersSection() {
           ))}
         </div>
 
-        <div className="mt-16 text-center">
+        {/* <div className="mt-16 text-center">
           <Link
             href="/team"
             className="inline-flex items-center gap-2 bg-[#233352] text-white py-3 px-8 font-medium hover:bg-[#1a2640] transition-colors"
           >
             View Full Team <ChevronRight className="h-4 w-4" />
           </Link>
-        </div>
+        </div> */}
       </div>
     </section>
   )
 }
-

@@ -13,20 +13,20 @@ export default function Home() {
           </div>
           <div className="relative z-10">
             <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold mb-6">
-              We are
+              FAKE NEWS DETECTOR
               <br />
-              boots'4
+
             </h1>
             <p className="text-xl md:text-2xl text-[#d1d0d0] mb-12 max-w-md">
-              For over 20 years we've worked with companies all around the globe.
+             Developed by Harshita Khare and Mayank Jaiswal
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
-              <Link
+              {/* <Link
                 href="#quote"
                 className="border-2 border-white py-3 px-8 text-center font-medium hover:bg-white hover:text-[#233352] transition-colors"
               >
-                GET A QUOTE
-              </Link>
+                GET STARTED
+              </Link> */}
               <Link
                 href="/upload"
                 className="flex items-center justify-center gap-2 bg-white text-[#233352] py-3 px-8 font-medium hover:bg-opacity-90 transition-colors"
@@ -38,7 +38,7 @@ export default function Home() {
         </div>
 
         {/* Right Section - Hero Image */}
-        <div className="bg-gradient-to-b from-[#233352] to-[#1a2640] flex items-center justify-center p-8">
+        {/* <div className="bg-gradient-to-b from-[#233352] to-[#1a2640] flex items-center justify-center p-8">
           <div className="max-w-md text-center">
             <h2 className="text-4xl font-bold text-white mb-6">Upload Your Files</h2>
             <p className="text-xl text-[#d1d0d0] mb-8">
@@ -51,7 +51,7 @@ export default function Home() {
               GET STARTED <ChevronRight className="h-4 w-4" />
             </Link>
           </div>
-        </div>
+        </div> */}
       </div>
 
       {/* Developers Section */}
@@ -59,4 +59,3 @@ export default function Home() {
     </main>
   )
 }
-
