@@ -11,7 +11,14 @@ from tensorflow.keras.models import load_model
 from tensorflow.keras.preprocessing.sequence import pad_sequences
 
 app = Flask(__name__)
-CORS(app)
+
+# Configure CORS to allow specific origin
+CORS(app, resources={r"/*": {"origins": "https://fake-news-detection-using-tensorflow.vercel.app"}})
+
+# Ensure uploads directory exists at app startup
+uploads_dir = "uploads"
+if not os.path.exists(uploads_dir):
+    os.makedirs(uploads_dir)
 
 # Model parameters (consistent with training script)
 max_length = 54
@@ -72,7 +79,7 @@ def upload_file():
     if file.filename == '':
         return jsonify({"error": "No selected file"}), 400
 
-    file_path = os.path.join("uploads", file.filename)
+    file_path = os.path.join(uploads_dir, file.filename)
     file.save(file_path)
 
     if file.filename.endswith(".txt"):
@@ -99,10 +106,7 @@ def analyze_text():
     prediction = predict_fake_news(title)
     return jsonify({"title": title, "news": data['news'], "prediction": prediction})
 
-
 if __name__ == '__main__':
-    if not os.path.exists("uploads"):
-        os.makedirs("uploads")
     # For local testing only (optional)
     port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port, debug=True)
