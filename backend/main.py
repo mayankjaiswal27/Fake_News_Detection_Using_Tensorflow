@@ -13,7 +13,7 @@ from tensorflow.keras.preprocessing.sequence import pad_sequences
 app = Flask(__name__)
 CORS(app)
 
-# Model parameters
+# Model parameters (consistent with training script)
 max_length = 54
 trunc_type = 'post'
 padding_type = 'post'
@@ -23,6 +23,7 @@ model = load_model('fake_news_model.h5')
 with open('tokenizer.pkl', 'rb') as f:
     tokenizer = pickle.load(f)
 
+# Text extraction functions
 def extract_text_from_txt(file_path):
     with open(file_path, "r", encoding="utf-8") as file:
         return file.read()
@@ -55,6 +56,7 @@ def map_to_json(text):
         news = text
     return {"title": title, "news": news}
 
+# Prediction function
 def predict_fake_news(title):
     sequences = tokenizer.texts_to_sequences([title])
     padded = pad_sequences(sequences, maxlen=max_length, padding=padding_type, truncating=trunc_type)
@@ -85,9 +87,6 @@ def upload_file():
         return jsonify({"error": "Unsupported file format"}), 400
 
     mapped_json = map_to_json(text)
-    prediction = predict_fake_news(mapped_json["title"])
-    mapped_json["prediction"] = prediction
-
     return jsonify(mapped_json)
 
 @app.route('/analyze', methods=['POST'])
@@ -100,8 +99,10 @@ def analyze_text():
     prediction = predict_fake_news(title)
     return jsonify({"title": title, "news": data['news'], "prediction": prediction})
 
+
 if __name__ == '__main__':
     if not os.path.exists("uploads"):
         os.makedirs("uploads")
-    port = int(os.environ.get("PORT", 5000)) 
+    # For local testing only (optional)
+    port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port, debug=True)
