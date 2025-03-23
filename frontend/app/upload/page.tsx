@@ -63,7 +63,7 @@ export default function UploadPage() {
     formDataUpload.append("file", file)
 
     try {
-      const response = await fetch("http://localhost:5000/upload", {
+      const response = await fetch("https://fake-news-detection-using-tensorflow.onrender.com/upload", {
         method: "POST",
         body: formDataUpload,
       })
@@ -89,7 +89,7 @@ export default function UploadPage() {
 
     setIsAnalyzing(true)
     try {
-      const response = await fetch("http://localhost:5000/analyze", {
+      const response = await fetch("https://fake-news-detection-using-tensorflow.onrender.com/analyze", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ title: formData.title, news: formData.news }),
